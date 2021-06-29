@@ -4,9 +4,9 @@
     <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
 
     <%= form_for (@friendship) do |form| %>
-      <%= form.number_field :user_id, value: current_user.id %>
-      <%= form.number_field :friend_id, value: user.id %>
-      <%= form.hidden_field :status, value: false %>
+      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%= form.hidden_field :friend_id, value: user.id %>
+      <%# form.hidden_field :status, value: false %>
       <%= form.submit 'Send friend request', class: 'btn' %>
     <% end %>
   </span>

@@ -3,11 +3,14 @@
   <span class="profile-link">
     <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
 
-    <%= form_for (@friendship) do |form| %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
-      <%= form.hidden_field :friend_id, value: user.id %>
-      <%# form.hidden_field :status, value: false %>
-      <%= form.submit 'Send friend request', class: 'btn' %>
+    <% if current_user.id != user.id %>
+      <%= form_for (@friendship) do |form| %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :friend_id, value: user.id %>
+        <%# form.hidden_field :status, value: false %>
+        <%= form.submit 'Add friend' %>
+      <% end %>
     <% end %>
+    
   </span>
 </li>

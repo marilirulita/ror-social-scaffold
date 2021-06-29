@@ -15,4 +15,13 @@ module ApplicationHelper
       link_to('Like!', post_likes_path(post_id: post.id), method: :post)
     end
   end
+
+  def friendship_btn(user)
+    friendship = Friendship.find_by(friend: user, user: current_user)
+    if friendship
+      link_to('remove request!', friendship_path(id: friendship.id, friend_id: user.id), method: :delete)
+    else
+      link_to('Add friend!', friendships_path(friend_id: user.id), method: :post)
+    end
+  end
 end

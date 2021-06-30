@@ -9,6 +9,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @posts = @user.posts.ordered_by_most_recent
+    @friendship = Friendship.new
+    @friendships = Friendship.friends
   end
 
+  def Friendship.friends
+    where(status: true)
+  end
 end

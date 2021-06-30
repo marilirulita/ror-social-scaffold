@@ -6,4 +6,23 @@
       <%= render @posts %>
     </ul>
   </article>
+<% if current_user.id != @user.id %>
+  <%= render 'form' %>
+<% end %>
 </section>
+
+<h3>All my friends: </h3>
+
+  <% @friendships.each do |friend| %>
+    <% if current_user.id == friend.user_id %>
+      <% @friends = [] %>
+      <%= friend.friend.name %>
+    <% end %> 
+      <br> 
+    <% if current_user.id == friend.friend_id %>
+      <%= friend.user.name %>
+
+    <% end %>    
+  <% end %>
+
+<h3>All my friends: </h3>

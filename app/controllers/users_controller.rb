@@ -23,15 +23,11 @@ class UsersController < ApplicationController
   def friends
     friendships = Friendship.all
     friends_array = []
-    friendships.map do |friendship| 
-      if current_user.id == friendship.user_id && friendship.status
-        friends_array.push(friendship.friend)
-      end
+    friendships.map do |friendship|
+      friends_array.push(friendship.friend) if current_user.id == friendship.user_id && friendship.status
     end
-    friendships.map do |friendship| 
-      if current_user.id == friendship.friend_id && friendship.status
-        friends_array.push(friendship.user)
-      end
+    friendships.map do |friendship|
+      friends_array.push(friendship.user) if current_user.id == friendship.friend_id && friendship.status
     end
     friends_array
   end

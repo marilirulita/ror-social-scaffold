@@ -1,5 +1,4 @@
 class FriendshipsController < ApplicationController
-
   def new
     @friendship = Friendship.new
   end
@@ -20,10 +19,10 @@ class FriendshipsController < ApplicationController
 
   def update
     @friendship = Friendship.find(params[:id])
-    
+
     respond_to do |format|
       if @friendship.update(friendship_params)
-        format.html { redirect_to users_path, notice: "Friend was successfully updated." }
+        format.html { redirect_to users_path, notice: 'Friend was successfully updated.' }
         format.json { render :show, status: :ok, location: users_path }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -33,7 +32,7 @@ class FriendshipsController < ApplicationController
   end
 
   private
-  
+
   def friendship_params
     params.require(:friendship).permit(:user_id, :friend_id, :status)
   end

@@ -10,19 +10,32 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @posts = @user.posts.ordered_by_most_recent
     @friendship = Friendship.new
-    @friends = Friendship.friends
+    @friendships = Friendship.all
+    @friends = friends
     @friend_requests = Friendship.friend_requests
-  end
-
-  def Friendship.friends
-    where(status: true)
   end
 
   def Friendship.friend_requests
     where(status: nil)
   end
 
-  def friendship_params
-    params.require(:friendship).permit(:user_id, :friend_id, :status)
+  def friends
+    friendships = Friendship.all
+    friends_array = []
+    friendships.map do |friendship| 
+      if current_user.id == friendship.user_id && friendship.status
+        friends_array.push(friendship.friend)
+      end
+    end
+    friendships.map do |friendship| 
+      if current_user.id == friendship.friend_id && friendship.status
+        friends_array.push(friendship.user)
+      end
+    end
+    friends_array
+  end
+
+  def friend?(user)
+    friends.include?(user)
   end
 end

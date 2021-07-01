@@ -1,8 +1,5 @@
      
      <%= form_for (@friendship) do |form| %>
-        <%= form.number_field :id %>
-        <%= form.number_field :user_id %>
-        <%= form.number_field :friend_id %>
-        <%= form.text_field :status, value: true %>
+        <%= form.hidden_field :status, value: true %>
         <%= form.submit 'Accept friend' %>
       <% end %>

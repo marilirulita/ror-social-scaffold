@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @friendship = Friendship.new
+    @friends = friends
   end
 
   def show
@@ -35,7 +36,7 @@ class UsersController < ApplicationController
     friends_array
   end
 
-  def friend?(user)
+  def self.friend?(user)
     friends.include?(user)
   end
 end

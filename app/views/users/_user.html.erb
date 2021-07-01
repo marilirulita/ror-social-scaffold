@@ -5,7 +5,12 @@
     
       <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
 
-      <%= render 'form' %>
+      <%= form_for (@friendship) do |form| %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :friend_id, value: user.id %>
+        <%= form.submit 'Add friend' %>
+      <% end %>
+      <%# render 'form' %>
     
   </span>
   <% end %>

@@ -7,22 +7,34 @@
     </ul>
   </article>
 <% if current_user.id != @user.id %>
-  <%= render 'form' %>
-<% end %>
+  <%= form_for (@friendship) do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :friend_id, value: @user.id %>
+    <%= form.submit 'Add friend' %>
+  <% end %>
+  <%# render 'form' %>
 </section>
+<% end %>
 
-<h3>All my friends: </h3>
-
-  <% @friendships.each do |friend| %>
+<% if current_user == @user %>
+<h3>My friends: </h3>
+  <% @friends.each do |friend| %>
     <% if current_user.id == friend.user_id %>
-      <% @friends = [] %>
-      <%= friend.friend.name %>
+      <h4 class="friends"><%= link_to friend.friend.name, user_path(friend.friend.id), class: 'friend-name' %> </h4>
     <% end %> 
-      <br> 
-    <% if current_user.id == friend.friend_id %>
-      <%= friend.user.name %>
 
+    <% if current_user.id == friend.friend_id %>
+      <h4 class="friends"><%= link_to friend.user.name,  user_path(friend.user.id), class: 'friend-name' %> </h4>
     <% end %>    
   <% end %>
 
-<h3>All my friends: </h3>
+<h3>Pending friend request: </h3>
+  <% @friend_requests.each do |friend| %>
+    <% if current_user.id == friend.friend_id %>
+      <div class="friends">
+      <%= link_to friend.user.name, user_path(friend.user.id), class: 'friend-name' %>
+      <%= link_to "See request", edit_friendship_path(friend.id), class: 'btn-friend' %>
+      </div>
+    <% end %> 
+  <% end %>
+<% end %>

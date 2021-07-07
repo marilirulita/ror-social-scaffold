@@ -6,6 +6,11 @@ class PostsController < ApplicationController
     timeline_posts
   end
 
+  def show
+    @post = Post.new
+    timeline_posts
+  end
+
   def create
     @post = current_user.posts.new(post_params)
 

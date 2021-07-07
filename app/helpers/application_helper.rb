@@ -16,12 +16,13 @@ module ApplicationHelper
     end
   end
 
-  #  def friendship_btn(user)
-  #    friendship = Friendship.find_by(friend: user, user: current_user)
-  #    if friendship
-  #      link_to('remove request!', friendship_path(id: friendship.id, friend_id: user.id), method: :delete)
-  #    else
-  #      link_to('Add friend!', friendships_path(friend_id: user.id), method: :post)
-  #    end
-  #  end
+    def friendship_btn(user)
+      friendship = Friendship.find_by(friend: user, user: current_user)
+      friendship2 = Friendship.find_by(friend: current_user, user: user)
+      if friendship || friendship2
+        true
+      else
+        false
+      end
+    end
 end

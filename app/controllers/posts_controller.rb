@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.new
-    timeline_posts
+    friends_posts
   end
 
   def create
@@ -28,7 +28,21 @@ class PostsController < ApplicationController
     @timeline_posts ||= Post.all.ordered_by_most_recent.includes(:user)
   end
 
+  def friends_posts
+    @friends_posts ||= Post.where(user_id: friendship_btn(:user_id)).ordered_by_most_recent.includes(:user)
+  end
+
   def post_params
     params.require(:post).permit(:content)
+  end
+
+  def friendship_btn(user)
+    friendship = Friendship.find_by(friend: user, user: current_user)
+    friendship2 = Friendship.find_by(friend: current_user, user: user)
+    if friendship || friendship2
+      user
+    else
+      false
+    end
   end
 end

@@ -1,6 +1,19 @@
 <li>
+  <% if current_user.id != user.id %>
   Name: <%= user.name %>
   <span class="profile-link">
-    <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
+    
+      <%= link_to 'See Profile',  user_path(user), class: 'profile-link' %>
+         
+      <% if @friends.exclude?(user) && friendship_btn(user) == false %>
+      <%= form_for (@friendship) do |form| %>
+        <%= form.hidden_field :user_id, value: current_user.id %>
+        <%= form.hidden_field :friend_id, value: user.id %>
+        <%= form.submit 'Add friend' %>
+      <% end %>
+      <%# render 'form' %>
+      <% end %>
+    
   </span>
+  <% end %>
 </li>

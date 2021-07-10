@@ -6,4 +6,32 @@
       <%= render @posts %>
     </ul>
   </article>
+<% if current_user.id != @user.id %>
+  <% if @friends.exclude?(@user) && friendship_btn(@user) == false%>
+  <%= form_for (@friendship) do |form| %>
+    <%= form.hidden_field :user_id, value: current_user.id %>
+    <%= form.hidden_field :friend_id, value: @user.id %>
+    <%= form.submit 'Add friend' %>
+  <% end %>
+  <% end %>
+  <%# render 'form' %>
 </section>
+<% end %>
+
+<% if current_user == @user %>
+<h3>My friends: </h3>
+  <% @friends.each do |friend| %>
+    <h4 class="friends"><%= link_to friend.name, user_path(friend.id), class: 'friend-name' %> </h4>    
+  <% end %>
+
+<h3>Pending friend request: </h3>
+  <% @friend_requests.each do |friend| %>
+    <% if current_user.id == friend.friend_id %>
+      <div class="friends">
+      <%= link_to friend.user.name, user_path(friend.user.id), class: 'friend-name' %>
+      <%= link_to "See request", edit_friendship_path(friend.id), class: 'btn-friend' %>
+      </div>
+    <% end %> 
+  <% end %>
+<% end %>
+

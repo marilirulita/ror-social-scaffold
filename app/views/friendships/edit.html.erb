@@ -1,0 +1,9 @@
+     
+     <%= form_for (@friendship) do |form| %>
+        <%= form.hidden_field :status, value: true %>
+        <%= form.submit 'Accept friend' %>
+      <% end %>
+      <%= form_for (@friendship) do |form| %>
+        <%= form.hidden_field :status, value: false %>
+        <%= form.submit 'Decline friend' %>
+      <% end %>

@@ -347,3 +347,21 @@ form {
     width: 50%;
   }
 }
+
+.friends {
+  margin: 10px;
+}
+
+.friend-name {
+  margin: 5px;
+  color: $primary-color-dark;
+  text-transform: capitalize;
+}
+
+.btn-friend {
+  background-color: $primary-color-dark;
+  color: $primary-color-light;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+}

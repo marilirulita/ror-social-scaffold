@@ -8,7 +8,9 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.new
+    @posts = Post.all
     friends_posts
+    @friendships = Friendship.all
   end
 
   def create
@@ -29,7 +31,7 @@ class PostsController < ApplicationController
   end
 
   def friends_posts
-    @friends_posts ||= Post.where(user_id: friendship_btn(:user_id)).ordered_by_most_recent.includes(:user)
+    @friends_posts ||= Post.where(user_id: friendship_btn(:user)).ordered_by_most_recent.includes(:user)
   end
 
   def post_params
@@ -40,9 +42,7 @@ class PostsController < ApplicationController
     friendship = Friendship.find_by(friend: user, user: current_user)
     friendship2 = Friendship.find_by(friend: current_user, user: user)
     if friendship || friendship2
-      user
-    else
-      false
+      true
     end
   end
 end
